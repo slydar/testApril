@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1>Liste des Contacts</h1>
+        <div class="row">
+            {% if contacts is empty %}
+                <div class="col-12">
+                    <p>Aucun contact trouvé.</p>
+                    <a href="{{ path('app_contact_add') }}" class="btn btn-primary">Ajouter un Contact</a>
+                </div>
+            {% else %}
+                {% for contact in contacts %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ contact.firstName }} {{ contact.lastName }}</h5>
+                                <p class="card-text">Email: {{ contact.email }}</p>
+                                <p class="card-text">Téléphone: {{ contact.phone }}</p>
+                                <p class="card-text">Dernières interactions: {{ contact.lastInteractions }}</p>
+                                <a href="{{ path('app_contact_add') }}" class="btn btn-success">Ajouter</a>
+                                <a href="{{ path('app_contact_edit', {'id': contact.id}) }}" class="btn btn-primary">Modifier</a>
+                                <form method="post" action="{{ path('app_contact_remove', {'id': contact.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce contact ?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ contact.id) }}">
+                                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                                </form>
+                                <a href="{{ path('app_contact_export_pdf', {'id': contact.id}) }}" class="btn btn-warning">Exporter en PDF</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

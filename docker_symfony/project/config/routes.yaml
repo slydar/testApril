@@ -1,0 +1,27 @@
+app_login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+
+app_register:
+    path: /register
+    controller: App\Controller\RegistrationController::register
+
+app_contacts:
+    path: /contacts
+    controller: App\Controller\ContactController::index
+
+app_contact_add:
+    path: /contacts/add
+    controller: App\Controller\ContactController::add
+
+app_contact_edit:
+    path: /contacts/{id}/edit
+    controller: App\Controller\ContactController::edit
+
+app_contact_remove:
+    path: /contacts/{id}/remove
+    controller: App\Controller\ContactController::remove
+
+app_contact_export_pdf:
+    path: /contacts/{id}/export-pdf
+    controller: App\Controller\ContactController::remove
